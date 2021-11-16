@@ -573,6 +573,16 @@
     tweetnacl "^1.0.3"
     tweetnacl-util "^0.15.1"
 
+"@metamask/quai-hd-keyring@https://github.com/spruce-solutions/eth-hd-keyring":
+  version "3.6.0"
+  resolved "https://github.com/spruce-solutions/eth-hd-keyring#46f39ea04334bff23a4775fc9473d96e8aad482d"
+  dependencies:
+    "@metamask/eth-sig-util" "^4.0.0"
+    bip39 "^2.2.0"
+    eth-simple-keyring "^4.2.0"
+    ethereumjs-util "^7.0.9"
+    ethereumjs-wallet "^1.0.1"
+
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
   resolved "https://registry.yarnpkg.com/@nodelib/fs.scandir/-/fs.scandir-2.1.5.tgz#7619c2eb21b25483f6d167548b4cfd5a7488c3d5"
@@ -1962,17 +1972,6 @@ esutils@^2.0.2:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/esutils/-/esutils-2.0.3.tgz#74d2eb4de0b8da1293711910d50775b9b710ef64"
   integrity sha512-kVscqXk4OCp68SZ0dkgEKVi6/8ij300KBWTJq32P/dYeWTSwK41WyTxalN1eRmA5Z9UU/LX9D7FWSmV9SAYx6g==
-
-eth-hd-keyring@^3.6.0:
-  version "3.6.0"
-  resolved "https://registry.yarnpkg.com/eth-hd-keyring/-/eth-hd-keyring-3.6.0.tgz#6835d30aa411b8d3ef098e82f6427b5325082abb"
-  integrity sha512-n2CwE9VNXsxLrXQa6suv0Umt4NT6+HtoahKgWx3YviXx4rQFwVT5nDwZfjhwrT31ESuoXYNIeJgz5hKLD96QeQ==
-  dependencies:
-    bip39 "^2.2.0"
-    eth-sig-util "^3.0.1"
-    eth-simple-keyring "^4.2.0"
-    ethereumjs-util "^7.0.9"
-    ethereumjs-wallet "^1.0.1"
 
 eth-sig-util@^3.0.1:
   version "3.0.1"
