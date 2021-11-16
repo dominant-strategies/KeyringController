@@ -31,6 +31,7 @@
     "lint:fix": "yarn lint:eslint --fix && yarn lint:misc --write"
   },
   "dependencies": {
+    "@metamask/eth-hd-keyring": "https://github.com/spruce-solutions/eth-hd-keyring",
     "bip39": "^3.0.4",
     "browser-passworder": "^2.0.3",
     "eth-hd-keyring": "^3.6.0",
