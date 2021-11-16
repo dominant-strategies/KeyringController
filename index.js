@@ -517,13 +517,13 @@ class KeyringController extends EventEmitter {
    * - Makes that account the selected account
    * - Faucets that account on testnet
    * - Puts the current seed words into the state tree
-   *
+   * @param {string} bytePrefix - The bytePrefix for the initial account
    * @returns {Promise<void>} - A promise that resovles if the operation was successful.
    */
-  createFirstKeyTree() {
+  createFirstKeyTree(bytePrefix) {
     this.clearKeyrings();
     return this.addNewKeyring('HD Key Tree', {
-      addAccountsWithPrefixes: ['00', '0a', '1a'],
+      addAccountsWithPrefixes: bytePrefix,
     })
       .then((keyring) => {
         return keyring.getAccounts();
