@@ -294,6 +294,29 @@ class KeyringController extends EventEmitter {
   }
 
   /**
+   * Add New Account By Byte Prefix
+   *
+   * Calls the `addAccounts` method on the given keyring,
+   * and then saves those changes.
+   *
+   * @param {Keyring} selectedKeyring - The currently selected keyring.
+   * @param {string} bytePrefix - The selected bytePrefix
+   * @returns {Promise<Object>} A Promise that resolves to the state.
+   */
+  addNewAccountByByte(selectedKeyring, bytePrefix) {
+    return selectedKeyring
+      .addAccountsWithPrefixes([bytePrefix])
+      .then((accounts) => {
+        accounts.forEach((hexAccount) => {
+          this.emit('newAccount', hexAccount);
+        });
+      })
+      .then(this.persistAllKeyrings.bind(this))
+      .then(this._updateMemStoreKeyrings.bind(this))
+      .then(this.fullUpdate.bind(this));
+  }
+
+  /**
    * Export Account
    *
    * Requests the private key from the keyring controlling
