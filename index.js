@@ -293,6 +293,33 @@ class KeyringController extends EventEmitter {
       .then(this.fullUpdate.bind(this));
   }
 
+   /**
+   * Add New Account
+   * TEST METHOD
+   * Calls the `addAccounts` method on the given keyring,
+   * and then saves those changes.
+   *
+   * @param {Keyring} selectedKeyring - The currently selected keyring.
+   * @param {string} bytePrefix - The selected bytePrefix
+   * @returns {Promise<Object>} A Promise that resolves to the state.
+   */
+  addNewAccountByByte (selectedKeyring, bytePrefix) {
+    return selectedKeyring.addAccounts(300)
+      .then((accounts) => {
+        for(let i = 0; i < accounts.length; i++){
+          if (accounts[i].substring(0,4) == bytePrefix){
+            this.emit('newAccount', hexAccount)
+          } else {
+            selectedKeyring.removeAccount(hexAccount)
+            this.emit('removeAccount', hexAccount)
+          }
+        }        
+      })
+      .then(this.persistAllKeyrings.bind(this))
+      .then(this._updateMemStoreKeyrings.bind(this))
+      .then(this.fullUpdate.bind(this))
+  }
+
   /**
    * Export Account
    *
