@@ -522,7 +522,9 @@ class KeyringController extends EventEmitter {
    */
   createFirstKeyTree() {
     this.clearKeyrings();
-    return this.addNewKeyring('HD Key Tree', { addAccountsWithPrefixes: true })
+    return this.addNewKeyring('HD Key Tree', {
+      addAccountsWithPrefixes: ['00', '0a', '1a'],
+    })
       .then((keyring) => {
         return keyring.getAccounts();
       })
