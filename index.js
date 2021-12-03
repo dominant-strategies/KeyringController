@@ -72,9 +72,9 @@ class KeyringController extends EventEmitter {
    * @param {string} password - The password to encrypt the vault with.
    * @returns {Promise<Object>} A Promise that resolves to the state.
    */
-  createNewVaultAndKeychain(password) {
+  createNewVaultAndKeychain(password, range) {
     return this.persistAllKeyrings(password)
-      .then(this.createFirstKeyTree.bind(this))
+      .then(this.createFirstKeyTree.bind(this), range)
       .then(this.persistAllKeyrings.bind(this, password))
       .then(this.setUnlocked.bind(this))
       .then(this.fullUpdate.bind(this));
@@ -300,12 +300,12 @@ class KeyringController extends EventEmitter {
    * and then saves those changes.
    *
    * @param {Keyring} selectedKeyring - The currently selected keyring.
-   * @param {string} bytePrefix - The selected bytePrefix
+   * @param {string} byteRange - The selected byteRange
    * @returns {Promise<Object>} A Promise that resolves to the state.
    */
-  addNewAccountByByte(selectedKeyring, bytePrefix) {
+  addNewAccountByByteRange(selectedKeyring, byteRange) {
     return selectedKeyring
-      .addAccountsWithPrefixes([bytePrefix])
+      .addAccountsWithByteRange(byteRange)
       .then((accounts) => {
         accounts.forEach((hexAccount) => {
           this.emit('newAccount', hexAccount);
@@ -517,13 +517,13 @@ class KeyringController extends EventEmitter {
    * - Makes that account the selected account
    * - Faucets that account on testnet
    * - Puts the current seed words into the state tree
-   * @param {string} bytePrefix - The bytePrefix for the initial account
+   * @param {array} range - The bytePrefix range for the initial account
    * @returns {Promise<void>} - A promise that resovles if the operation was successful.
    */
-  createFirstKeyTree(bytePrefix) {
+  createFirstKeyTree(range) {
     this.clearKeyrings();
     return this.addNewKeyring('HD Key Tree', {
-      addAccountsWithPrefixes: bytePrefix,
+      prefixRange: range,
     })
       .then((keyring) => {
         return keyring.getAccounts();
