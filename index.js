@@ -70,11 +70,12 @@ class KeyringController extends EventEmitter {
    *
    * @emits KeyringController#unlock
    * @param {string} password - The password to encrypt the vault with.
+   * @param {array} range - the range of byte prefix
    * @returns {Promise<Object>} A Promise that resolves to the state.
    */
   createNewVaultAndKeychain(password, range) {
     return this.persistAllKeyrings(password)
-      .then(this.createFirstKeyTree.bind(this), range)
+      .then(this.createFirstKeyTree.bind(this, range))
       .then(this.persistAllKeyrings.bind(this, password))
       .then(this.setUnlocked.bind(this))
       .then(this.fullUpdate.bind(this));
@@ -520,7 +521,7 @@ class KeyringController extends EventEmitter {
    * @param {array} range - The bytePrefix range for the initial account
    * @returns {Promise<void>} - A promise that resovles if the operation was successful.
    */
-  createFirstKeyTree(range) {
+  createFirstKeyTree(range = this.range) {
     this.clearKeyrings();
     return this.addNewKeyring('HD Key Tree', {
       prefixRange: range,
